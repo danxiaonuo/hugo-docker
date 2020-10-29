@@ -37,47 +37,47 @@ ENV HUGO_PORT=$HUGO_PORT
 ARG HUGO_BUILD_DEPS="\
       tzdata \
       ca-certificates \
-	  asciidoctor \
-	  libc6-compat \
+      asciidoctor \
+      libc6-compat \
       libstdc++ \
       pcre \
-	  nodejs \
-	  nodejs-npm \
-	  git \
-	  curl \
-	  wget \
-	  gcc \
-	  g++ \
-	  make \
-	  libffi-dev \
-	  openssl-dev \
-	  libxml2-dev \
-	  libxml2-utils \
-	  libxslt \
-	  musl-dev \
-	  libxslt-dev \
-	  jq \
+      nodejs \
+      nodejs-npm \
+      git \
+      curl \
+      wget \
+      gcc \
+      g++ \
+      make \
+      libffi-dev \
+      openssl-dev \
+      libxml2-dev \
+      libxml2-utils \
+      libxslt \
+      musl-dev \
+      libxslt-dev \
+      jq \
       bash"
 ENV HUGO_BUILD_DEPS=$HUGO_BUILD_DEPS
 
 ARG PY_DEPS="\
       python3 \
-	  python3-dev"
+      python3-dev"
 ENV PY_DEPS=$PY_DEPS
 
 
 ARG FONT_DEPS="\
       font-adobe-100dpi \
-	  ttf-dejavu \
-	  fontconfig"
+      ttf-dejavu \
+      fontconfig"
 ENV FONT_DEPS=$FONT_DEPS
 
 ARG PWA_DEPS="\
       workbox-build \
-	  gulp \
-	  gulp-uglify \
-	  readable-stream \
-	  uglify-es"
+      gulp \
+      gulp-uglify \
+      readable-stream \
+      uglify-es"
 ENV PWA_DEPS=$PWA_DEPS
 
 # dumb-init
@@ -99,8 +99,7 @@ LABEL maintainer="danxiaonuo <danxiaonuo@danxiaonuo.me>" \
       org.label-schema.schema-version="1.0" \
       org.label-schema.url="https://github.com/$DOCKER_IMAGE" \
       org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="https://github.com/$DOCKER_IMAGE" \
-      versions.dumb-init=${DUMBINIT_VERSION}
+      org.label-schema.vcs-url="https://github.com/$DOCKER_IMAGE"
 
 # 修改源地址
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
@@ -123,9 +122,9 @@ RUN set -eux \
 #   && export HUGO_DOWN=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases |jq -r .[].assets[].browser_download_url| grep -i 'extended'| grep -i 'Linux-64bit.tar.gz'|head -n 1) \
     && export HUGO_DOWN="https://github.com/gohugoio/hugo/releases/download/v0.71.1/hugo_extended_0.71.1_Linux-64bit.tar.gz" \
     && wget --no-check-certificate -O - $HUGO_DOWN | tar -xz -C /tmp \
-	&& mv /tmp/hugo /usr/bin/hugo \
-	&& chmod +x /usr/bin/hugo \
-	&& rm -rf /tmp/*
+    && mv /tmp/hugo /usr/bin/hugo \
+    && chmod +x /usr/bin/hugo \
+    && rm -rf /tmp/*
 	
 	
 # ***** 升级 setuptools 版本 *****
@@ -139,10 +138,9 @@ RUN set -eux \
   
 
 # ***** 安装字体库 *****
-RUN set -eux \
-    && mkdir /usr/share/fonts/win \
-    && COPY ./font/. /usr/share/fonts/win/ \
-    && RUN chmod -R 777 /usr/share/fonts/win && fc-cache -f
+RUN mkdir /usr/share/fonts/win \
+COPY ./font/. /usr/share/fonts/win/ \
+RUN chmod -R 777 /usr/share/fonts/win && fc-cache -f
 
 # ***** 安装 PWA *****
 RUN set -eux \
@@ -154,10 +152,6 @@ RUN set -eux \
     && wget -O /usr/bin/hugo-encryptor.py https://cdn.jsdelivr.net/gh/Li4n0/hugo_encryptor/hugo-encryptor.py \
     && chmod +x /usr/bin/hugo-encryptor.py
 	
-# ***** 安装dumb-init *****
-RUN set -eux \
-    && wget --no-check-certificate https://github.com/Yelp/dumb-init/releases/download/v${DUMBINIT_VERSION}/dumb-init_${DUMBINIT_VERSION}_x86_64 -O /usr/bin/dumb-init \
-    && chmod +x /usr/bin/dumb-init
 
 # ***** 设置HOGO环境变量 *****
 ENV PATH /usr/bin/dumb-init:$PATH
