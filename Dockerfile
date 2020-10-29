@@ -133,8 +133,8 @@ RUN set -eux \
   
 
 # ***** 安装字体库 *****
-RUN mkdir /usr/share/fonts/win \
-COPY ./font/. /usr/share/fonts/win/ \
+RUN mkdir /usr/share/fonts/win
+COPY ./font/. /usr/share/fonts/win/
 RUN chmod -R 777 /usr/share/fonts/win && fc-cache -f
 
 # ***** 安装 PWA *****

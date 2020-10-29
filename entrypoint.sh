@@ -41,6 +41,7 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
 	cd $HUGO_PATH
 	git init
     git submodule add --depth 1 https://github.com/dillonzq/LoveIt.git themes/LoveIt
+	git submodule update --init --recursive
     git submodule update --rebase --remote
 	\cp -rfp themes/LoveIt/exampleSite/* .
 	mkdir -p $HUGO_PATH/layouts/shortcodes/
