@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  hugo:
+    tty: true
+    restart: always
+    container_name: hugo
+    hostname: hugo
+    build: .
+    image: danxiaonuo/hugo:latest
+    volumes:
+      # HUGO输出静态文件路径
+      - ./src/:/src:rw
+      # HUGO站点路径(正式环境发布路径)
+      - ./blog/:/blog:rw
+      # 同步宿主机时区与时间
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro,cached
+      - /etc/localtime:/etc/localtime:ro,cached
+    environment:
+      # 创建HUGO
+      - HUGO_NEWSITE=false
+      # # 监听文件状态
+      - HUGO_WATCH=false
+      # 发布HUGO
+      - HUGO_PUB=true
+      # # HUGO主题模板
+      - HUGO_THEME=LoveIt
+      # HUGO访问站点地址
+      - HUGO_BASEURL=http://www.danxiaonuo.me
+      # HUGO监听端口
+      - HUGO_PORT=80
+    cap_add:
+     - ALL
+    sysctls:
+     - net.ipv4.tcp_ecn=1
+     - net.ipv4.tcp_ecn_fallback=1
+     - net.ipv4.tcp_congestion_control=bbrplus
+    ulimits:
+      nproc: 65535
+      nofile:
+          soft: 65535
+          hard: 65535
+    ports:
+    - "80:80"
+    dns:
+    - 114.114.114.114
+    - 119.29.29.29
