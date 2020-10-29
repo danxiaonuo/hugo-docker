@@ -80,11 +80,6 @@ ARG PWA_DEPS="\
       uglify-es"
 ENV PWA_DEPS=$PWA_DEPS
 
-# dumb-init
-# https://github.com/Yelp/dumb-init
-ARG DUMBINIT_VERSION=1.2.2
-ENV DUMBINIT_VERSION=$DUMBINIT_VERSION
-
 # ##############################################################################
 
 ####################################
