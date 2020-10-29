@@ -165,7 +165,7 @@ WORKDIR ${HUGO_PATH}
 ADD entrypoint.sh /entrypoint.sh
 
 # ***** 增加文件权限 *****
-RUN chmod +x /entrypoint.sh /usr/local/sbin/hugo
+RUN chmod +x /entrypoint.sh /usr/bin/hugo
 
 # ***** 命令执行入口 *****
 ENTRYPOINT ["/entrypoint.sh"]
