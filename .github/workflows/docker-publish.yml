@@ -65,7 +65,7 @@ jobs:
     - name: 登录 DockerHub
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKER_USERNAME }}
+        username: danxiaonuo
         password: ${{ secrets.DOCKER_PASSWORD }}
   
     - name: 构建镜像并发布
