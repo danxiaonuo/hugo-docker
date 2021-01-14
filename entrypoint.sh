@@ -40,12 +40,12 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
 	hugo new site $HUGO_PATH
 	cd $HUGO_PATH
 	git init
-    git submodule add --depth 1 https://github.com/dillonzq/LoveIt.git themes/LoveIt
+        git submodule add --depth 1 https://github.com/dillonzq/LoveIt.git themes/LoveIt
 	git submodule update --init --recursive
-    git submodule update --rebase --remote
+        git submodule update --rebase --remote
 	\cp -rfp themes/LoveIt/exampleSite/* .
 	mkdir -p $HUGO_PATH/layouts/shortcodes/
-	wget -O $HUGO_PATH/layouts/shortcodes/hugo-encryptor.html https://cdn.jsdelivr.net/gh/Li4n0/hugo_encryptor/shortcodes/hugo-encryptor.html
+	wget -O $HUGO_PATH/layouts/shortcodes/hugo-encryptor.html https://raw.githubusercontent.com/Li4n0/hugo_encryptor/master/shortcodes/hugo-encryptor.html
 	echo "创建HUGO结束"
 	tail -f /dev/null
 fi
