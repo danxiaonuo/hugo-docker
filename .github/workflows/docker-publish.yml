@@ -1,17 +1,16 @@
 #=================================================
 # https://github.com/danxiaonuo/hugo-docker
-# Description: Build OpenWrt using GitHub Actions
 # Lisence: MIT
 # Author: danxiaonuo
 # Blog: https://www.danxiaonuo.com
 #=================================================
 
-name: 自动编译并上传镜像
+name: 自动编译hugo并上传镜像
 
 # 设置触发条件
 on:
   # 仓库触发工作流
-  repository_dispatch:
+  # repository_dispatch:
   # 编辑文件触发开始编译
   push:
     paths:
@@ -73,7 +72,7 @@ jobs:
       with:
         context: .
         file: ./Dockerfile
-        platforms: linux/amd64,linux/arm/v7,linux/arm64
+        platforms: linux/amd64,linux/arm/v7,linux/arm64,linux/386
         push: true
         tags: danxiaonuo/hugo:${{ matrix.DOCKER_TAG }}
         

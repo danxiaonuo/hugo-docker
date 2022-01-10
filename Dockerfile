@@ -42,7 +42,7 @@ ARG HUGO_BUILD_DEPS="\
       libstdc++ \
       pcre \
       nodejs \
-      nodejs-npm \
+      npm \
       git \
       curl \
       wget \
@@ -106,8 +106,7 @@ RUN set -eux \
 
 # ***** 安装HUGO *****
 RUN set -eux \
-#   && export HUGO_DOWN=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases |jq -r .[].assets[].browser_download_url| grep -i 'extended'| grep -i 'Linux-64bit.tar.gz'|head -n 1) \
-    && export HUGO_DOWN="https://github.com/gohugoio/hugo/releases/download/v0.71.1/hugo_extended_0.71.1_Linux-64bit.tar.gz" \
+    && export HUGO_DOWN=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases |jq -r .[].assets[].browser_download_url| grep -i 'extended'| grep -i 'Linux-64bit.tar.gz'|head -n 1) \
     && wget --no-check-certificate -O - $HUGO_DOWN | tar -xz -C /tmp \
     && mv /tmp/hugo /usr/bin/hugo \
     && chmod +x /usr/bin/hugo \
@@ -127,6 +126,9 @@ RUN mkdir /usr/share/fonts/win
 COPY ./font/. /usr/share/fonts/win/
 RUN chmod -R 777 /usr/share/fonts/win && fc-cache -f
 
+# ***** 工作目录 *****
+WORKDIR ${HUGO_PATH}
+
 # ***** 安装 PWA *****
 RUN set -eux \
     && npm install $PWA_DEPS --save-dev && npm update
@@ -144,9 +146,6 @@ ENV PATH /usr/bin/hugo-encryptor.py:$PATH
 # ***** 挂载目录 *****
 VOLUME ${HUGO_PATH}
 VOLUME ${HUGO_DESTINATION}
-
-# ***** 工作目录 *****
-WORKDIR ${HUGO_PATH}
 
 # ***** 增加文件 *****
 ADD entrypoint.sh /entrypoint.sh

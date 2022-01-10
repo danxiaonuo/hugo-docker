@@ -7,7 +7,7 @@ HUGO_WATCH="${HUGO_WATCH:=false}"
 # 发布HUGO
 HUGO_PUB="${HUGO_PUB:=true}"
 # HUGO主题模板
-HUGO_THEME="${HUGO_THEME:=LoveIt}"
+HUGO_THEME="${HUGO_THEME:=FeelIt}"
 # HUGO站点路径
 HUGO_PATH="${HUGO_PATH:=/blog}"
 # HUGO输出静态文件路径
@@ -36,14 +36,15 @@ echo "hugo-encryptor脚本路径: $hugo_encryptor"
 
 if [[ $HUGO_NEWSITE != 'false' ]]; then
 	echo "创建HUGO"
+	rm -rf $HUGO_PATH
 	mkdir -p $HUGO_PATH
 	hugo new site $HUGO_PATH
 	cd $HUGO_PATH
 	git init
-        git submodule add --depth 1 https://github.com/dillonzq/LoveIt.git themes/LoveIt
+	git submodule add --depth 1 https://github.com/khusika/FeelIt themes/FeelIt
 	git submodule update --init --recursive
         git submodule update --rebase --remote
-	\cp -rfp themes/LoveIt/exampleSite/* .
+	\cp -rfp themes/FeelIt/exampleSite/* .
 	mkdir -p $HUGO_PATH/layouts/shortcodes/
 	wget -O $HUGO_PATH/layouts/shortcodes/hugo-encryptor.html https://raw.githubusercontent.com/Li4n0/hugo_encryptor/master/shortcodes/hugo-encryptor.html
 	echo "创建HUGO结束"
