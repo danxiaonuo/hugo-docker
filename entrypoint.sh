@@ -7,7 +7,7 @@ HUGO_WATCH="${HUGO_WATCH:=false}"
 # 发布HUGO
 HUGO_PUB="${HUGO_PUB:=true}"
 # HUGO主题模板
-HUGO_THEME="${HUGO_THEME:=FeelIt}"
+HUGO_THEME="${HUGO_THEME:=FixIt}"
 # HUGO站点路径
 HUGO_PATH="${HUGO_PATH:=/blog}"
 # HUGO输出静态文件路径
