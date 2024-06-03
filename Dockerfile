@@ -70,6 +70,7 @@ ARG PKG_DEPS="\
     iptables \
     nodejs \
     npm \
+    python2 \
     python3 \
     python3-dev \
     python3-pip \
