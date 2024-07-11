@@ -45,8 +45,17 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
 	# git submodule update --init --recursive
         # git submodule update --rebase --remote
 	git submodule update --remote --merge themes/FixIt
-	mkdir -p $HUGO_PATH/layouts/shortcodes/
-	wget -O $HUGO_PATH/layouts/shortcodes/hugo-encryptor.html https://raw.githubusercontent.com/Li4n0/hugo_encryptor/master/shortcodes/hugo-encryptor.html
+        cat /dev/null > hugo.toml
+        echo 'title = "hugo"' >> hugo.toml
+        echo 'theme = "FixIt"' >> hugo.toml
+        echo 'defaultContentLanguage = "zh-cn"' >> hugo.toml
+        echo 'languageCode = "zh-CN"' >> hugo.toml
+        echo 'languageName = "简体中文"' >> hugo.toml
+        echo 'lhasCJKLanguage = true' >> hugo.toml
+        hugo server --bind 0.0.0.0 -p 80 -D --disableFastRender
+        hugo new content posts/my-first-post.md
+	# mkdir -p $HUGO_PATH/layouts/shortcodes/
+	# wget -O $HUGO_PATH/layouts/shortcodes/hugo-encryptor.html https://raw.githubusercontent.com/Li4n0/hugo_encryptor/master/shortcodes/hugo-encryptor.html
 	echo "创建HUGO结束"
 	tail -f /dev/null
 fi
@@ -54,7 +63,7 @@ if [[ $HUGO_PUB != 'false' ]]; then
 	echo "发布HUGO"
 	rm -rf public
 	hugo
-	python3 $hugo_encryptor
+	# python3 $hugo_encryptor
 	echo "发布HUGO完成"
 	tail -f /dev/null
 fi
