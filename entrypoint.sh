@@ -30,15 +30,12 @@ echo "其他参数:" $@
 # HUGO二进制文件路径
 HUGO=/usr/bin/hugo
 echo "HUGO二进制文件路径: $HUGO"
-# hugo-encryptor脚本路径
-hugo_encryptor=/usr/bin/hugo-encryptor.py
-echo "hugo-encryptor脚本路径: $hugo_encryptor"
 
 if [[ $HUGO_NEWSITE != 'false' ]]; then
 	echo "创建HUGO"
-	rm -rf $HUGO_PATH
-	mkdir -p $HUGO_PATH
-	hugo new site $HUGO_PATH
+	sudo rm -rf $HUGO_PATH
+	sudo mkdir -p $HUGO_PATH
+	sudo hugo new site $HUGO_PATH
 	cd $HUGO_PATH
 	git init
 	git submodule add --depth 1 https://github.com/hugo-fixit/FixIt.git themes/FixIt
@@ -53,21 +50,20 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
         echo 'languageName = "简体中文"' >> hugo.toml
         echo 'lhasCJKLanguage = true' >> hugo.toml
         hugo server --bind 0.0.0.0 -p 80 -D --disableFastRender
-        hugo new content posts/my-first-post.md
-	# mkdir -p $HUGO_PATH/layouts/shortcodes/
-	# wget -O $HUGO_PATH/layouts/shortcodes/hugo-encryptor.html https://raw.githubusercontent.com/Li4n0/hugo_encryptor/master/shortcodes/hugo-encryptor.html
+        sudo hugo new content posts/my-first-post.md
 	echo "创建HUGO结束"
 	tail -f /dev/null
 fi
 if [[ $HUGO_PUB != 'false' ]]; then
 	echo "发布HUGO"
-	rm -rf public
+        cd $HUGO_PATH
+	sudo rm -rf public
 	hugo
-	# python3 $hugo_encryptor
 	echo "发布HUGO完成"
 	tail -f /dev/null
 fi
 if [[ $HUGO_WATCH != 'false' ]]; then
 	echo "监视HUGO"
+        cd $HUGO_PATH
 	hugo server -e production -w -t="$HUGO_THEME" -s="$HUGO_PATH" -d="$HUGO_DESTINATION" -b="$HUGO_BASEURL" --bind="$HUGO_BIND" -p="$HUGO_PORT" "$@" || exit 1
 fi
