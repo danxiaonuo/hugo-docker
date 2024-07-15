@@ -70,6 +70,7 @@ ARG PKG_DEPS="\
     iptables \
     nodejs \
     npm \
+    sudo \
     python2 \
     python3 \
     python3-dev \
@@ -131,7 +132,6 @@ RUN set -eux && \
    locale-gen zh_CN.UTF-8 && localedef -f UTF-8 -i zh_CN zh_CN.UTF-8 && locale-gen && \
    /bin/zsh
 
-
 # ***** 安装HUGO *****
 RUN set -eux && \
     export HUGO_DOWN=$(curl -s https://api.github.com/repos/gohugoio/hugo/releases |jq -r .[].assets[].browser_download_url| grep -i 'extended'| grep -i 'Linux-64bit.tar.gz'|head -n 1) && \
@@ -148,23 +148,16 @@ RUN set -eux && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
     pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests && \
     rm -r /root/.cache && rm -rf /tmp/*
-  
-
+ 
 # ***** 工作目录 *****
 WORKDIR ${HUGO_PATH}
 
 # ***** 安装 PWA *****
 RUN set -eux && \
     npm install $PWA_DEPS --save-dev && npm update
-	
-# ***** 安装 Hugo-Encryptor *****
-RUN set -eux && \
-    wget -O /usr/bin/hugo-encryptor.py https://cdn.jsdelivr.net/gh/Li4n0/hugo_encryptor/hugo-encryptor.py && \
-    chmod +x /usr/bin/hugo-encryptor.py
-	
+		
 # ***** 设置HOGO环境变量 *****
 ENV PATH /usr/bin/hugo:$PATH
-ENV PATH /usr/bin/hugo-encryptor.py:$PATH
 
 # ***** 挂载目录 *****
 VOLUME ${HUGO_PATH}
