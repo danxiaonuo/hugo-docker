@@ -49,8 +49,8 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
         echo 'languageCode = "zh-CN"' >> hugo.toml
         echo 'languageName = "简体中文"' >> hugo.toml
         echo 'lhasCJKLanguage = true' >> hugo.toml
+	hugo new content posts/my-first-post.md
         hugo server --bind 0.0.0.0 -p 80 -D --disableFastRender
-        sudo hugo new content posts/my-first-post.md
 	echo "创建HUGO结束"
 	tail -f /dev/null
 fi
