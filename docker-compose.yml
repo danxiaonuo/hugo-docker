@@ -49,7 +49,7 @@ services:
       # 发布HUGO
       - HUGO_PUB=true
       # HUGO主题模板
-      - HUGO_THEME=FeelIt
+      - HUGO_THEME=FixIt
       # HUGO访问站点地址
       - HUGO_BASEURL=http://www.danxiaonuo.me
       # HUGO监听端口
