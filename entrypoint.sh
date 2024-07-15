@@ -65,5 +65,5 @@ fi
 if [[ $HUGO_WATCH != 'false' ]]; then
 	echo "监视HUGO"
         cd $HUGO_PATH
-	hugo server -e production -w -t="$HUGO_THEME" -s="$HUGO_PATH" -d="$HUGO_DESTINATION" -b="$HUGO_BASEURL" --bind="$HUGO_BIND" -p="$HUGO_PORT" "$@" || exit 1
+	hugo server -e production -w -t="$HUGO_THEME" -s="$HUGO_PATH" -d="$HUGO_DESTINATION" -b="$HUGO_BASEURL" --bind="$HUGO_BIND" -p="$HUGO_PORT" --disableFastRender "$@" || exit 1
 fi
