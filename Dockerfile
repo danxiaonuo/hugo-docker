@@ -73,8 +73,11 @@ ARG PKG_DEPS="\
     sudo \
     python2 \
     python3 \
+    python-is-python3 \
     python3-dev \
     python3-pip \
+    python3-yaml \
+    python3.11 \
     language-pack-zh-hans \
     fonts-droid-fallback \
     fonts-wqy-zenhei \
