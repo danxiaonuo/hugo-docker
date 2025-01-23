@@ -38,7 +38,7 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
 	sudo hugo new site $HUGO_PATH
 	cd $HUGO_PATH
 	git init
-	git submodule add --depth 1 https://github.com/hugo-fixit/FixIt.git themes/FixIt
+        git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt
 	# git submodule update --init --recursive
         # git submodule update --rebase --remote
 	git submodule update --remote --merge themes/FixIt
