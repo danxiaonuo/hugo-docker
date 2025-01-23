@@ -139,16 +139,19 @@ RUN set -eux && \
     mv /tmp/hugo /usr/bin/hugo && \
     chmod +x /usr/bin/hugo && \
     rm -rf /tmp/*
-		
-# ***** 升级 setuptools 版本 *****
+
+# ***** 升级 python3 版本 *****
 RUN set -eux && \
-    wget --no-check-certificate https://bootstrap.pypa.io/pip/2.7/get-pip.py -O /tmp/get-pip.py && \
-    python2 /tmp/get-pip.py && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 && \
     pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple/ && \
     pip3 config set install.trusted-host mirrors.aliyun.com && \
+    wget --no-check-certificate https://bootstrap.pypa.io/pip/2.7/get-pip.py -O /tmp/get-pip.py && \
+    python2 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
+    wget --no-check-certificate https://bootstrap.pypa.io/get-pip.py -O /tmp/get-pip.py && \
+    python3 /tmp/get-pip.py && rm -rf /tmp/get-pip.py && \
     pip3 install --upgrade pip setuptools wheel pycryptodome lxml cython beautifulsoup4 requests && \
     rm -r /root/.cache && rm -rf /tmp/*
- 
+     
 # ***** 工作目录 *****
 WORKDIR ${HUGO_PATH}
 
