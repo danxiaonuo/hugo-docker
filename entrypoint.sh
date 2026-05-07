@@ -38,19 +38,19 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
 	sudo hugo new site $HUGO_PATH
 	cd $HUGO_PATH
 	git init
-        git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt
+    git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt
 	# git submodule update --init --recursive
-        # git submodule update --rebase --remote
+    # git submodule update --rebase --remote
 	git submodule update --remote --merge themes/FixIt
-        cat /dev/null > hugo.toml
-        echo 'title = "hugo"' >> hugo.toml
-        echo 'theme = "FixIt"' >> hugo.toml
-        echo 'defaultContentLanguage = "zh-cn"' >> hugo.toml
-        echo 'languageCode = "zh-CN"' >> hugo.toml
-        echo 'languageName = "简体中文"' >> hugo.toml
-        echo 'lhasCJKLanguage = true' >> hugo.toml
+    cat /dev/null > hugo.toml
+    echo 'title = "hugo"' >> hugo.toml
+    echo 'theme = "FixIt"' >> hugo.toml
+    echo 'defaultContentLanguage = "zh-cn"' >> hugo.toml
+    echo 'locale = "zh-CN"' >> hugo.toml
+    echo 'languageName = "简体中文"' >> hugo.toml
+    echo 'lhasCJKLanguage = true' >> hugo.toml
 	hugo new content posts/my-first-post.md
-        hugo server --bind 0.0.0.0 -p 80 -D --disableFastRender
+    hugo server --bind 0.0.0.0 -p 80 -D --disableFastRender
 	echo "创建HUGO结束"
 	tail -f /dev/null
 fi
