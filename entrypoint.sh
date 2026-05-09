@@ -56,7 +56,7 @@ if [[ $HUGO_NEWSITE != 'false' ]]; then
 fi
 if [[ $HUGO_PUB != 'false' ]]; then
 	echo "发布HUGO"
-        cd $HUGO_PATH
+    cd $HUGO_PATH
 	sudo rm -rf public
 	hugo
 	echo "发布HUGO完成"
