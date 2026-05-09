@@ -147,8 +147,7 @@ RUN set -eux && \
 RUN set -eux && \
     export SASS_DOWN=$(curl -s https://api.github.com/repos/sass/dart-sass/releases | jq -r .[].assets[].browser_download_url | grep -i 'linux-x64.tar.gz'| head -n 1) && \
     wget --no-check-certificate -O - $SASS_DOWN | tar -xz -C /tmp && \
-    mv /tmp/dart-sass /usr/local/bin/sass && \
-	mv /tmp/dart-sass/src /usr/local/bin/src && \
+    cp -rfp /tmp/dart-sass/* /usr/local/bin/ && \
     chmod +x /usr/local/bin/sass && \
     rm -rf /tmp/*
 	
