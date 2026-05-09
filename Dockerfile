@@ -143,6 +143,15 @@ RUN set -eux && \
     chmod +x /usr/bin/hugo && \
     rm -rf /tmp/*
 
+# ***** 安装SASS *****
+RUN set -eux && \
+    export SASS_DOWN=$(curl -s https://api.github.com/repos/sass/dart-sass/releases | jq -r .[].assets[].browser_download_url | grep -i 'linux-x64.tar.gz'| head -n 1) && \
+    wget --no-check-certificate -O - $SASS_DOWN | tar -xz -C /tmp && \
+    mv /tmp/dart-sass /usr/local/bin/sass && \
+	mv /tmp/dart-sass/src /usr/local/bin/src && \
+    chmod +x /usr/local/bin/sass && \
+    rm -rf /tmp/*
+	
 # ***** 升级 python3 版本 *****
 RUN set -eux && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 && \
